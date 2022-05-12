@@ -1,16 +1,19 @@
 //Assign all elements
 const sizeButton = document.querySelectorAll('.size-button');
-const container = document.querySelectorAll('.main-container');
-const blocks = document.querySelectorAll('.square-div');
+const container = Array.from(document.querySelectorAll('.main-container'));
+const blocks = Array.from(document.querySelectorAll('.square-div'));
+const clearButton = document.querySelector('.clear-button');
+const rainbowButton = document.querySelector('.rainbow');
+
+//On loading page
+window.addEventListener('load', createDiv(256));
+
 
 //Get the player input and set the divs
 sizeButton.forEach(button => button.addEventListener('click', function(e){
     clear ();
     userInput = e.target.id;
-    // console.log(userInput);
-    createDiv(userInput); //create n divs = button pushed #
-    // console.log(blocks);
-    console.log(document.querySelectorAll('.square-div'));
+    createDiv(userInput); 
 }))
 
 //Create the square divs
@@ -29,15 +32,36 @@ function createDiv (userInput) {
     }
 }
 
-//Clear function
+//Clear function on player selection
 function clear () {
     const bigBox = document.getElementById("big-box");
     bigBox.innerHTML = ''
 }
 
-//Color on hover
-blocks.forEach(block => block.addEventListener('click', function (e){
-    console.log(e.target);
-    e.target.style.backgroundColor = "black";
-}))
+//
+clearButton.addEventListener('click', () => {
+    clear();
+    createDiv(256);
+})
 
+//Color on click
+function colorOnClick (colorInput) {
+    for (let i = 0; i < container.length; i++){
+        container[i].addEventListener('click', function(e) {
+            e.target.style.backgroundColor = colorInput;
+        });
+    }
+}   
+
+
+//Generate random RGB color
+function getRandomRgb (){
+    const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
+    const r = randomBetween(0, 255);
+    const g = randomBetween(0, 255);
+    const b = randomBetween(0, 255);
+    return rgb = `rgb(${r},${g},${b})`; // Collect all to a css color string
+}
+
+console.log(getRandomRgb())
+colorOnClick(getRandomRgb());

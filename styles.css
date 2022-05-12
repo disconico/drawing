@@ -52,6 +52,7 @@ h1 {
 
 .main-body {
     display: flex;
+    justify-content: space-around;
 }
 
 .side-pannel {
