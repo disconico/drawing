@@ -9,6 +9,33 @@
     <script type="text/javascript" src="./scripts.js" defer></script>
 </head>
 <body>
-    <div class="main-container">I'm the main container</div>
+    <div class="header">
+        <h1 class="rainbow-text">Etch-a-sketch</h1>
+        <img class="rainbow-image" alt="rainbow" src="./images/rainbow.png">
+    </div>
+    <div class="main-body">
+        <div class="side-pannel">
+            <div class="color-buttons">
+                <p>Chose your color!</p>
+                <button class="color-button" id='black'>Black & white</button>
+                <button class="color-button" id='rainbow'>Gradient</button>
+                <button class="color-button" id='TDB'>Rainbow</button>
+            </div>
+            <div class="size-buttons">
+                <p>Chose the grid size!</p>
+                <button class="size-button" id='256'>16 x 16</button>
+                <button class="size-button" id='1024'>32 x 32</button>
+                <button class="size-button" id='4096'>64 x 64</button>
+            </div>
+            <div class="clear-buttons">
+                <p>Clear your art!</p>
+                <button class="clear-button">Clear</button>
+            </div>
+        </div>
+        <div class="main-container" id="big-box"></div>
+    </div>
+    <div class="footer">@disconico for The Odin Project</div>
+
+
 </body>
 </html>
