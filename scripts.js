@@ -88,3 +88,7 @@ window.addEventListener('mousemove', (event) => {
         return
     }    
 })
+
+window.addEventListener('click', (event) => {
+    colorOnClick(event);
+});
