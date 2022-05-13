@@ -7,6 +7,7 @@
     <title>Etch-a-sketch</title>
     <link rel="stylesheet" href="./styles.css">
     <script type="text/javascript" src="./scripts.js" defer></script>
+    <script src="https://kit.fontawesome.com/cef649e5b9.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="header">
@@ -14,11 +15,11 @@
         <img class="rainbow-image" alt="rainbow" src="./images/rainbow.png">
     </div>
     <div class="main-body">
-        <div class="side-pannel">
+        <div class="side-panel">
             <div class="color-buttons">
                 <p>Chose your color!</p>
                 <button class="color-button black" id='black'>Black</button>
-                <button class="color-button rainbow" id='yellow'>Rainbow</button>
+                <button class="color-button rainbow" id='rainbow'>Rainbow</button>
                 <button class="color-button eraser" id='eraser'>Eraser</button>
             </div>
             <div class="size-buttons">
@@ -31,10 +32,18 @@
                 <p>Clear your art!</p>
                 <button class="clear-button">Clear</button>
             </div>
+            <div class="side-img">
+                <img src="./images/dino.png" alt="dino drawing" class="dino">
+            </div>
         </div>
-        <div class="main-container" id="big-box"></div>
+        <div class="grid" id="big-box"></div>
     </div>
-    <div class="footer">@disconico for The Odin Project</div>
+    <div class="footer">
+        <p id="footer-text">Copyright © disconico</p>
+        <a href="https://github.com/disconico" target="_blank">
+            <i class="fa fa-lg fa-github" aria-hidden="true"></i>
+        </a>
+    </div>
 
 
 </body>

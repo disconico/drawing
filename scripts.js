@@ -1,17 +1,36 @@
 //Assign all elements
-const sizeButton = document.querySelectorAll('.size-button');
-const container = Array.from(document.querySelectorAll('.main-container'));
-const blocks = Array.from(document.querySelectorAll('.square-div'));
-const clearButton = document.querySelector('.clear-button');
-const rainbowButton = document.querySelector('.rainbow');
+const grid = Array.from(document.querySelectorAll('.grid'));
+const sizeBtn = document.querySelectorAll('.size-button');
+const clearBtn = document.querySelector('.clear-button');
+const rainbowBtn = document.getElementById('rainbow');
+const blackBtn = document.getElementById('black');
+const eraseBtn = document.getElementById('eraser');
 
 //On loading page
 window.addEventListener('load', createDiv(256));
+let currentMode = 'black'
 
+//Set color mode
+blackBtn.onclick = () => setCurrentMode ('black')
+rainbowBtn.onclick = () => setCurrentMode ('rainbow')
+eraseBtn.onclick = () => setCurrentMode ('erase')
+clearBtn.onclick = () => {
+    clearGrid();
+    createDiv(256);
+}
 
-//Get the player input and set the divs
-sizeButton.forEach(button => button.addEventListener('click', function(e){
-    clear ();
+function setCurrentMode (newMode) {
+    currentMode = newMode
+}
+
+function clearGrid () {
+    const bigBox = document.getElementById("big-box");
+    bigBox.innerHTML = ''
+}
+
+//Change grid size by button input
+sizeBtn.forEach(button => button.addEventListener('click', function(e){
+    clearGrid ();
     userInput = e.target.id;
     createDiv(userInput); 
 }))
@@ -20,48 +39,52 @@ sizeButton.forEach(button => button.addEventListener('click', function(e){
 function createDiv (userInput) {
     for (let i = 0; i < userInput; i++) {
         const newDiv = document.createElement('div');
+        newDiv.appendChild(document.createTextNode(``));
         newDiv.setAttribute("class", "square-div");
         newDiv.setAttribute("id", `Square #${i}`);
-        newDiv.setAttribute('tabindex',`${i}`);
-        newDiv.appendChild(document.createTextNode(``));
-        let squareSize = Math.sqrt((160000 / userInput));
+        let squareSize = Math.sqrt((360000 / userInput));
         let roundedSquareSize = Math.round(squareSize * 100) / 100;
         newDiv.style.width = roundedSquareSize + 'px';
         newDiv.style.height = roundedSquareSize + 'px';
-        container[0].appendChild(newDiv);
+        grid[0].appendChild(newDiv);
     }
 }
-
-//Clear function on player selection
-function clear () {
-    const bigBox = document.getElementById("big-box");
-    bigBox.innerHTML = ''
-}
-
-//
-clearButton.addEventListener('click', () => {
-    clear();
-    createDiv(256);
-})
 
 //Color on click
-function colorOnClick (colorInput) {
-    for (let i = 0; i < container.length; i++){
-        container[i].addEventListener('click', function(e) {
-            e.target.style.backgroundColor = colorInput;
-        });
+function colorOnClick (elem) {
+    if(elem.target.classList == 'square-div') {
+        if(currentMode == 'black'){
+            let square = elem.target
+            square.style.backgroundColor = 'black'
+        } else if (currentMode == 'rainbow') {
+            let square = elem.target
+            square.style.backgroundColor = getRandomRgb()
+        } else if (currentMode == 'erase'){
+            let square = elem.target;
+            square.style.backgroundColor = 'white';
+        }
     }
-}   
-
+}
 
 //Generate random RGB color
 function getRandomRgb (){
-    const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
-    const r = randomBetween(0, 255);
-    const g = randomBetween(0, 255);
-    const b = randomBetween(0, 255);
-    return rgb = `rgb(${r},${g},${b})`; // Collect all to a css color string
+    var num = Math.round(0xffffff * Math.random());
+    var r = num >> 16;
+    var g = num >> 8 & 255;
+    var b = num & 255;
+    return 'rgb(' + r + ', ' + g + ', ' + b + ')';
 }
 
-console.log(getRandomRgb())
-colorOnClick(getRandomRgb());
+//Mouse event
+let mouseIsDown = false;
+window.addEventListener('mousedown', () => {mouseIsDown = true})
+window.addEventListener('mouseup', () => {mouseIsDown = false})
+
+//ETCH-A-SKETCH !
+window.addEventListener('mousemove', (event) => {
+    if (mouseIsDown) {
+        colorOnClick(event)
+    } else if (mouseIsDown == false) {
+        return
+    }    
+})
